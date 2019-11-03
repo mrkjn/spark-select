@@ -18,7 +18,7 @@ if __name__ == "__main__":
         .read \
         .format('minioSelectParquet') \
         .schema(st) \
-        .load("s3://testbucket/people.parquet")
+        .load("cos://testbucket/people.parquet")
 
     # show all rows.
     df.show()

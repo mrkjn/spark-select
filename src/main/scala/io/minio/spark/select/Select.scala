@@ -19,6 +19,7 @@ import org.apache.hadoop.conf.Configuration
 
 // Select API
 import com.amazonaws.services.s3.model.JSONInput
+import com.amazonaws.services.s3.model.JSONOutput
 import com.amazonaws.services.s3.model.JSONType
 import com.amazonaws.services.s3.model.CSVInput
 import com.amazonaws.services.s3.model.CSVOutput
@@ -127,7 +128,11 @@ private[spark] object Select {
 
       val outputSerialization = new OutputSerialization()
       val csvOutput = new CSVOutput()
+      csvOutput.withRecordDelimiter('\n')
+      csvOutput.withQuoteFields(s"ASNEEDED")
+      csvOutput.withFieldDelimiter(params.getOrElse("delimiter", ","))
       outputSerialization.setCsv(csvOutput)
+      //outputSerialization.setJson(jsonOutput)
       request.setOutputSerialization(outputSerialization)
     }
   }
@@ -161,6 +166,7 @@ private[spark] object Select {
 
       val outputSerialization = new OutputSerialization()
       val csvOutput = new CSVOutput()
+      csvOutput.withQuoteFields(s"ASNEEDED")
       csvOutput.withRecordDelimiter('\n')
       csvOutput.withFieldDelimiter(params.getOrElse("delimiter", ","))
       outputSerialization.setCsv(csvOutput)

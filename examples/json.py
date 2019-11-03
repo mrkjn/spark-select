@@ -18,7 +18,7 @@ if __name__ == "__main__":
         .read \
         .format('minioSelectJSON') \
         .schema(st) \
-        .load("s3://testbucket/people.json")
+        .load("cos://testbucket/people.json")
 
     # show all rows.
     df.show()

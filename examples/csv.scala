@@ -14,7 +14,7 @@ object app {
       .read
       .format("minioSelectCSV")
       .schema(schema)
-      .load("s3://sjm-airlines/people.csv")
+      .load("cos://sjm-airlines/people.csv")
 
     println(df.show())
 

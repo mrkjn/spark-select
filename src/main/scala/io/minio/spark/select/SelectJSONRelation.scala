@@ -61,9 +61,19 @@ case class SelectJSONRelation protected[spark] (
   private val SERVER_REGION = s"fs.s3a.region"
 
   private val hadoopConfiguration = sqlContext.sparkContext.hadoopConfiguration
+  private val cos_ak = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.userinfo.secretId")
+  private val cos_sk = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.userinfo.secretKey")
+  private val cos_endpoint = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.endpoint")
+  private val cos_region = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.region")
+
+  hadoopConfiguration.set(s"fs.s3a.access.key", cos_ak)
+  hadoopConfiguration.set(s"fs.s3a.secret.key", cos_sk)
+  hadoopConfiguration.set(SERVER_ENDPOINT, cos_endpoint)
+  hadoopConfiguration.set(SERVER_REGION, cos_region)
+  
   private val pathStyleAccess = hadoopConfiguration.get(API_PATH_STYLE_ACCESS, "false") == "true"
-  private val endpoint = hadoopConfiguration.get(SERVER_ENDPOINT, "https://s3.amazonaws.com")
-  private val region = hadoopConfiguration.get(SERVER_REGION, "us-east-1")
+  private val endpoint = hadoopConfiguration.get(SERVER_ENDPOINT, "https://cloud.tencent.com/product/cos")
+  private val region = hadoopConfiguration.get(SERVER_REGION, "ap-chongqing")
   private val s3Client =
     AmazonS3ClientBuilder.standard()
       .withCredentials(Credentials.load(location, hadoopConfiguration))

@@ -18,7 +18,7 @@ if __name__ == "__main__":
         .read \
         .format('minioSelectCSV') \
         .schema(st) \
-        .load("s3://testbucket/people.csv")
+        .load("cos://testbucket/people.csv")
 
     # show all rows.
     df.show()

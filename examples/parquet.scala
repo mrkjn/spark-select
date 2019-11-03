@@ -14,7 +14,7 @@ object app {
       .read
       .format("minioSelectParquet")
       .schema(schema)
-      .load("s3://sjm-airlines/people.parquet")
+      .load("cos://sjm-airlines/people.parquet")
 
     println(df.show())
 

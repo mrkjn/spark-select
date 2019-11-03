@@ -16,18 +16,17 @@
 package io.minio.spark.select.util
 
 import java.net.URI
-import com.amazonaws.services.s3.AmazonS3URI
 
 object S3URI {
   private[select] def toAmazonS3URI(
-    location: String): AmazonS3URI = {
+    location: String): COSURI = {
     val uri = new URI(location)
     val uriScheme = uri.getScheme
     uriScheme match {
-      case "s3" =>
-        new AmazonS3URI(uri)
+      case "cos" =>
+        new COSURI(uri)
       case "s3a" | "s3n" =>
-        new AmazonS3URI(new URI("s3", uri.getUserInfo, uri.getHost, uri.getPort, uri.getPath,
+        new COSURI(new URI("s3", uri.getUserInfo, uri.getHost, uri.getPort, uri.getPath,
           uri.getQuery, uri.getFragment))
       case other =>
         throw new IllegalArgumentException(s"Unrecognized scheme $other; expected s3, or s3a or s3n")

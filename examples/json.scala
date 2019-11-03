@@ -14,7 +14,7 @@ object app {
       .read
       .format("minioSelectJSON")
       .schema(schema)
-      .load("s3://sjm-airlines/people.json")
+      .load("cos://sjm-airlines/people.json")
 
     println(df.show())
 

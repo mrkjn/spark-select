@@ -39,7 +39,7 @@ private[spark] object Credentials {
     val uriScheme = uri.getScheme
 
     uriScheme match {
-      case "s3" | "s3a" =>
+      case "cos" | "s3a" =>
         // This matches what S3A does, with one exception: we don't
         // support anonymous credentials. First, try to parse from URI:
         Option(uri.getUserInfo).flatMap { userInfo =>
