@@ -66,10 +66,10 @@ case class SelectCSVRelation protected[spark] (
   private val SERVER_REGION = s"fs.s3a.region"
 
   private val hadoopConfiguration = sqlContext.sparkContext.hadoopConfiguration
-  private val cos_ak = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.userinfo.secretId")
-  private val cos_sk = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.userinfo.secretKey")
-  private val cos_endpoint = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.endpoint")
-  private val cos_region = sqlContext.sparkContext.getConf.get(s"spark.hadoop.cosn.region")
+  private val cos_ak = sqlContext.sparkContext.getConf.get(s"spark.hadoop.fs.cosn.userinfo.secretId")
+  private val cos_sk = sqlContext.sparkContext.getConf.get(s"spark.hadoop.fs.cosn.userinfo.secretKey")
+  private val cos_endpoint = sqlContext.sparkContext.getConf.get(s"spark.hadoop.fs.cosn.endpoint")
+  private val cos_region = sqlContext.sparkContext.getConf.get(s"spark.hadoop.fs.cosn.bucket.region")
 
   hadoopConfiguration.set(s"fs.s3a.access.key", cos_ak)
   hadoopConfiguration.set(s"fs.s3a.secret.key", cos_sk)
